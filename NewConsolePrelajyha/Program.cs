@@ -4,17 +4,6 @@ using NewConsolePrelajyha;
 using Task = NewConsolePrelajyha.Task;
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-
-// var task = context.Tasks.FirstOrDefault(t => t.Id == 1);
-// if (task == null)
-// {
-//     Console.WriteLine("Такой задачи не существует");
-//     
-//     return;
-// }
-//
-// Console.WriteLine($"Найдена задача под номером {task.Id}. Её название \"{task.Name}\"");
-
 bool stopped = false;
 
 while (!stopped)
@@ -33,286 +22,41 @@ while (!stopped)
 
         continue;
     }
-    // if (namber == "1")
-    // {
-    //     Console.WriteLine("Введите название новой задачи");
-    //     
-    //     var name = Console.ReadLine();
-    //     if (string.IsNullOrWhiteSpace(name))
-    //     {
-    //         Console.WriteLine("Некорректный ввод");
-    //         
-    //         continue;
-    //     }
-    //     
-    //     var task = new Task
-    //     {
-    //         Name = name
-    //     };
-    //
-    //     using var context = new DatabaseContext();
-    //     {
-    //         context.Tasks.Add(task);
-    //
-    //         context.SaveChanges();
-    //     }
-    // }
 
     switch (namber)
     {
         case "1":
         {
-            Console.WriteLine("Введите название новой задачи");
-            var name = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                Console.WriteLine("Некорректный ввод");
-
-                continue;
-            }
-
-            var task = new Task
-            {
-                Name = name
-            };
-
-            using var context = new DatabaseContext();
-            {
-                context.Tasks.Add(task);
-                context.SaveChanges();
-            }
+            TaskManager.CreateNewTask();
             break;
         }
         case "2":
         {
-            Console.WriteLine("Введите номер задачи");
-
-            var id = Convert.ToInt32(Console.ReadLine());
-            if (id <= 0)
-            {
-                Console.WriteLine("Такой задачи не существует");
-
-                continue;
-            }
-
-            Console.WriteLine("Введите новое изменение");
-
-            var newchange = Console.ReadLine();
-            using var context = new DatabaseContext();
-            {
-                var task = context.Tasks.FirstOrDefault(t => t.Id == id);
-                if (task == null)
-                {
-                    Console.WriteLine("Такой задачи не существует");
-
-                    continue;
-                }
-
-                task.Name = newchange;
-                context.SaveChanges();
-
-                Console.WriteLine("Задача успешно изменена");
-            }
+            TaskManager.UpdateTask();
             break;
         }
         case "3":
         {
-            Console.WriteLine("Введите номер задачи");
-
-            var id = Convert.ToInt32(Console.ReadLine());
-            if (id <= 0)
-            {
-                Console.WriteLine("Такой задачи не существует");
-
-                continue;
-            }
-
-            using var context = new DatabaseContext();
-            {
-                var task = context.Tasks.FirstOrDefault(t => t.Id == id);
-                if (task == null)
-                {
-                    Console.WriteLine("Такой задачи не существует");
-
-                    continue;
-                }
-
-                context.Remove(task);
-                context.SaveChanges();
-
-                Console.WriteLine("Удаление успешно");
-                break;
-            }
+            TaskManager.DeleteTask();
+            break;
         }
         case "4":
         {
-            Console.WriteLine("Список задач:");
-
-            var tasks = new List<Task>();
-            using var context = new DatabaseContext();
-            {
-                tasks = context.Tasks.AsNoTracking().ToList();
-            }
-
-            foreach (var task in tasks)
-            {
-                var isCompleted = task.IsCompleted ? " ✓ " : " ❌  ";
-
-                Console.WriteLine($"{task.Id}. Название - {task.Name} [{isCompleted}]");
-            }
-
+            TaskManager.CheckTask();
             break;
         }
         case "5":
         {
-            Console.WriteLine("Введите номер задачи");
-
-            var id = Convert.ToInt32(Console.ReadLine());
-            if (id <= 0)
-            {
-                Console.WriteLine("Такой задачи не существует");
-
-                continue;
-            }
-
-            using var context = new DatabaseContext();
-            {
-                var task = context.Tasks.FirstOrDefault(t => t.Id == id);
-                if (task == null)
-                {
-                    Console.WriteLine("Такой задачи не существует");
-
-                    continue;
-                }
-
-                task.IsCompleted = !task.IsCompleted;
-                context.SaveChanges();
-
-                Console.WriteLine("Изменение успешно");
-            }
+            TaskManager.СhangingTask();
             break;
         }
         case "6":
-            Console.WriteLine("Доброго дня");
-
-            return;
+        {
+            TaskManager.ExitProgram();
+            break;
+        }
     }
 }
 
-// if (namber == "2")
-    //  {
-    //      Console.WriteLine("Введите номер задачи");
-    // 
-    //      var id = Convert.ToInt32(Console.ReadLine());
-    //      if (id <= 0)
-    //      {
-    //          Console.WriteLine("Такой задачи не существует");
-    //          
-    //          continue;
-    //      }
-    //     
-    //     Console.WriteLine("Введите новое изменение");
-    //
-    //     var newchange = Console.ReadLine();
-    //     using var context = new DatabaseContext();
-    //     {
-    //         var task = context.Tasks.FirstOrDefault(t => t.Id == id);
-    //         if (task == null) 
-    //         { 
-    //             Console.WriteLine("Такой задачи не существует"); 
-    //             
-    //             continue;
-    //         }
-    //
-    //         task.Name = newchange;
-    //         context.SaveChanges();
-    //         
-    //         Console.WriteLine("Задача успешно изменена");
-    //         
-    //     }
-    // }
-    
-    // if (namber == "3")
-    // {
-    //     Console.WriteLine("Введите номер задачи");
-    //     
-    //     var id = Convert.ToInt32(Console.ReadLine());
-    //     if (id <= 0)
-    //     {
-    //         Console.WriteLine("Такой задачи не существует");
-    //         
-    //         continue;
-    //     }
-    //     
-    //     using var context = new DatabaseContext();
-    //     {
-    //         var task = context.Tasks.FirstOrDefault(t => t.Id == id);
-    //         if (task == null) 
-    //         { 
-    //             Console.WriteLine("Такой задачи не существует"); 
-    //             
-    //             continue;
-    //         }
-    //
-    //         context.Tasks.Remove(task);
-    //         context.SaveChanges();
-    //         
-    //         Console.WriteLine("Удаление успешно");
-    //     }
-    // }
-    
-    // if (namber == "4")
-    // {
-    //     Console.WriteLine("Список задач:");
-    //     
-    //     var tasks = new List<Task>();
-    //     using var context = new DatabaseContext();
-    //     {
-    //         tasks = context.Tasks.AsNoTracking().ToList();
-    //     }
-    //
-    //     foreach (var task in tasks)
-    //     {
-    //         var isCompleted = task.IsCompleted ? " ✓ " : " ❌  ";
-    //
-    //         Console.WriteLine($"{task.Id}. Название - {task.Name} [{isCompleted}]");
-    //     }
-    // }
-    
-    // if (namber == "5")
-    // {
-    //     Console.WriteLine("Введите номер задачи");
-    //     
-    //     var id = Convert.ToInt32(Console.ReadLine());
-    //     if (id <= 0)
-    //     {
-    //         Console.WriteLine("Такой задачи не существует");
-    //         
-    //         continue;
-    //     }
-    //     
-    //     using var context = new DatabaseContext();
-    //     {
-    //         var task = context.Tasks.FirstOrDefault(t => t.Id == id);
-    //         if (task == null) 
-    //         { 
-    //             Console.WriteLine("Такой задачи не существует"); 
-    //             
-    //             continue;
-    //         }
-    //
-    //         task.IsCompleted = !task.IsCompleted;
-    //         
-    //         context.SaveChanges();
-    //         
-    //         Console.WriteLine("Изменение успешно");
-    //     }
-    // }
 
-    // if (namber == "6")
-    // {
-    //     Console.WriteLine("Доброго дня");
-    //     
-    //     return;
-    // }
 
