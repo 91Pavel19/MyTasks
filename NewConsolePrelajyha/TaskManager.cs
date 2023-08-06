@@ -88,7 +88,7 @@ public class TaskManager
         }
     }
 
-    public static void CheckTask()
+    public static void ViewkTasks()
     {
         Console.WriteLine("Список задач:");
 
@@ -106,7 +106,7 @@ public class TaskManager
         }
     }
 
-    public static void СhangingTask()
+    public static void UpdateTaskStatus()
     {
         Console.WriteLine("Введите номер задачи");
 
@@ -133,12 +133,5 @@ public class TaskManager
 
             Console.WriteLine("Изменение успешно");
         }
-    }
-
-    public static void ExitProgram()
-    {
-        Console.WriteLine("Доброго дня");
-
-        return;
     }
 }

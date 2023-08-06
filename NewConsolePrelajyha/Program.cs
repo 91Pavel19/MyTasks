@@ -28,32 +28,38 @@ while (!stopped)
         case "1":
         {
             TaskManager.CreateNewTask();
+            
             break;
         }
         case "2":
         {
             TaskManager.UpdateTask();
+            
             break;
         }
         case "3":
         {
             TaskManager.DeleteTask();
+            
             break;
         }
         case "4":
         {
-            TaskManager.CheckTask();
+            TaskManager.ViewkTasks();
+            
             break;
         }
         case "5":
         {
-            TaskManager.СhangingTask();
+            TaskManager.UpdateTaskStatus();
+            
             break;
         }
         case "6":
         {
-            TaskManager.ExitProgram();
-            break;
+            Console.WriteLine("Доброго дня");
+
+            return;
         }
     }
 }
