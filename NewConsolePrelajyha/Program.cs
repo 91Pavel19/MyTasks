@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NewConsolePrelajyha;
 using Task = NewConsolePrelajyha.Task;
+
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 bool stopped = false;
@@ -14,16 +15,16 @@ while (!stopped)
                       $"\n Просмотр задач \"4\" " +
                       $"\n Изменение статуса \"5\" " +
                       $"\n Выход из приложения \"6\"");
-
-    string namber = Console.ReadLine();
-    if (string.IsNullOrWhiteSpace(namber))
+    
+    string number = Console.ReadLine();
+    if (string.IsNullOrWhiteSpace(number))
     {
         Console.WriteLine("Некорректный ввод");
 
         continue;
     }
 
-    switch (namber)
+    switch (number)
     {
         case "1":
         {
@@ -45,7 +46,7 @@ while (!stopped)
         }
         case "4":
         {
-            TaskManager.ViewkTasks();
+            TaskManager.ViewTasks();
             
             break;
         }

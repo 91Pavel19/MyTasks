@@ -31,7 +31,7 @@ public class TaskManager
     {
         Console.WriteLine("Введите номер задачи");
 
-        var id = Convert.ToInt32(Console.ReadLine());
+        var id = ConvertId(Console.ReadLine()!);
         if (id <= 0)
         {
             Console.WriteLine("Такой задачи не существует");
@@ -44,7 +44,7 @@ public class TaskManager
         var newchange = Console.ReadLine();
         using var context = new DatabaseContext();
         {
-            var task = context.Tasks.FirstOrDefault(t => t.Id == id);
+            var task = GetTask(id);
             if (task == null)
             {
                 Console.WriteLine("Такой задачи не существует");
@@ -63,7 +63,7 @@ public class TaskManager
     {
         Console.WriteLine("Введите номер задачи");
 
-        var id = Convert.ToInt32(Console.ReadLine());
+        var id = ConvertId(Console.ReadLine()!);
         if (id <= 0)
         {
             Console.WriteLine("Такой задачи не существует");
@@ -73,7 +73,7 @@ public class TaskManager
 
         using var context = new DatabaseContext();
         {
-            var task = context.Tasks.FirstOrDefault(t => t.Id == id);
+            var task = GetTask(id);
             if (task == null)
             {
                 Console.WriteLine("Такой задачи не существует");
@@ -88,7 +88,7 @@ public class TaskManager
         }
     }
 
-    public static void ViewkTasks()
+    public static void ViewTasks()
     {
         Console.WriteLine("Список задач:");
 
@@ -110,7 +110,7 @@ public class TaskManager
     {
         Console.WriteLine("Введите номер задачи");
 
-        var id = Convert.ToInt32(Console.ReadLine());
+        var id = ConvertId(Console.ReadLine()!);
         if (id <= 0)
         {
             Console.WriteLine("Такой задачи не существует");
@@ -120,7 +120,7 @@ public class TaskManager
 
         using var context = new DatabaseContext();
         {
-            var task = context.Tasks.FirstOrDefault(t => t.Id == id);
+            var task = GetTask(id);
             if (task == null)
             {
                 Console.WriteLine("Такой задачи не существует");
@@ -132,6 +132,29 @@ public class TaskManager
             context.SaveChanges();
 
             Console.WriteLine("Изменение успешно");
+        }
+    }
+
+    private static Task? GetTask(int id)
+    {
+        using var context = new DatabaseContext();
+        {
+            return context.Tasks.FirstOrDefault(t => t.Id == id);
+        }
+    }
+
+    private static int ConvertId(string input)
+    {
+        try
+        {
+            var id = Convert.ToInt32(Console.ReadLine());
+            
+            return id;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return 0;
         }
     }
 }
